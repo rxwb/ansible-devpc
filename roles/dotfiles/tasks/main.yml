@@ -31,3 +31,13 @@
     value: "{{ item.value }}"
     scope: global
   loop: "{{ git_aliases | dict2items }}"
+
+- name: grml zsh config is present
+  ansible.builtin.copy:
+    src: "zshrc"
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+
+- name: zsh local config is present
+  ansible.builtin.template:
+    src: "zshrc.local.j2"
+    dest: "{{ ansible_env.HOME }}/.zshrc.local"

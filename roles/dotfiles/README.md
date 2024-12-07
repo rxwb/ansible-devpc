@@ -14,6 +14,7 @@ Role Variables
 - git\_name: name used for git commits
 - git\_email: email used for git commits
 - git\_aliases: dictionary of git aliases
+- zsh\_aliases: dictionary of zsh aliases. Can't use literal ' in the aliased command
 
 Dependencies
 ------------
@@ -31,6 +32,8 @@ Example Playbook
         git_email: user@example.com
         git_aliases:
           ci: commit
+        zsh_aliases:
+          g: git
 
 License
 -------

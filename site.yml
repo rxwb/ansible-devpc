@@ -15,3 +15,7 @@
       l: log
       pu: push
       st: status
+    zsh_aliases:
+      g: git
+      gl: git log --oneline
+      py: ipython
