@@ -1,0 +1,14 @@
+#SPDX-License-Identifier: MIT
+---
+# tasks file for dotfiles
+
+- name: awesome config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/awesome"
+    state: directory
+    mode: '0755'
+
+- name: awesome config is present
+  ansible.builtin.copy:
+    src: rc.lua
+    dest: "{{ ansible_env.HOME }}/.config/awesome/rc.lua"
