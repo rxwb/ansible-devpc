@@ -1,7 +1,7 @@
 #!/usr/bin/env ansible-playbook
 ---
 - name: Install dotfiles
-  hosts: localhost
+  hosts: devpcs
   roles:
     - dotfiles
   vars:
@@ -11,9 +11,12 @@
       ap: add -p
       ci: commit
       cia: commit --amend
+      di: diff
       ds: diff --staged
       l: log
       pu: push
+      pl: pull
+      rbi: rebase --interactive
       st: status
     zsh_aliases:
       g: git
