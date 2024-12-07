@@ -19,3 +19,10 @@
       g: git
       gl: git log --oneline
       py: ipython
+
+- name: Enable ssh-agent
+  hosts: devpcs
+  roles:
+    - ssh-agent
+  vars:
+    ssh_agent_key_timeout: 3600
