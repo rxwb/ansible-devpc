@@ -7,23 +7,27 @@
     path: "{{ ansible_env.HOME }}/.config/awesome"
     state: directory
     mode: '0755'
+  tags: [dotfiles, awesome]
 
 - name: awesome config is present
   ansible.builtin.copy:
     src: rc.lua
     dest: "{{ ansible_env.HOME }}/.config/awesome/rc.lua"
+  tags: [dotfiles, awesome]
 
 - name: git name is set
   community.general.git_config:
     name: user.name
     value: "{{ git_name }}"
     scope: global
+  tags: [dotfiles, git]
 
 - name: git email is set
   community.general.git_config:
     name: user.email
     value: "{{ git_email }}"
     scope: global
+  tags: [dotfiles, git]
 
 - name: git aliases are set
   community.general.git_config:
@@ -31,13 +35,16 @@
     value: "{{ item.value }}"
     scope: global
   loop: "{{ git_aliases | dict2items }}"
+  tags: [dotfiles, git]
 
 - name: grml zsh config is present
   ansible.builtin.copy:
     src: "zshrc"
     dest: "{{ ansible_env.HOME }}/.zshrc"
+  tags: [dotfiles, zsh]
 
 - name: zsh local config is present
   ansible.builtin.template:
     src: "zshrc.local.j2"
     dest: "{{ ansible_env.HOME }}/.zshrc.local"
+  tags: [dotfiles, zsh]
