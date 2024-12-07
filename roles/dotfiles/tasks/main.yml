@@ -9,10 +9,13 @@
     mode: '0755'
   tags: [dotfiles, awesome]
 
-- name: awesome config is present
+- name: awesome config files are present
   ansible.builtin.copy:
-    src: rc.lua
-    dest: "{{ ansible_env.HOME }}/.config/awesome/rc.lua"
+    src: "awesome-{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.config/awesome/{{ item }}"
+  loop:
+    - rc.lua
+    - battery.lua
   tags: [dotfiles, awesome]
 
 - name: git name is set
