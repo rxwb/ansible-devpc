@@ -1,0 +1,7 @@
+#SPDX-License-Identifier: MIT
+---
+# defaults file for dotfiles
+
+git_name: Example Name
+git_email: user@example.com
+git_aliases: {}

@@ -4,3 +4,14 @@
   hosts: localhost
   roles:
     - dotfiles
+  vars:
+    git_name: Ronald Weber
+    git_email: ronaldxweber@gmail.com
+    git_aliases:
+      ap: add -p
+      ci: commit
+      cia: commit --amend
+      ds: diff --staged
+      l: log
+      pu: push
+      st: status
