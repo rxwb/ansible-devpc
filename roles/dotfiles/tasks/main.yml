@@ -40,6 +40,12 @@
   loop: "{{ git_aliases | dict2items }}"
   tags: [dotfiles, git]
 
+- name: vim config file is present
+  ansible.builtin.copy:
+    src: "vimrc"
+    dest: "{{ ansible_env.HOME }}/.vimrc"
+  tags: [dotfiles, vim]
+
 - name: grml zsh config is present
   ansible.builtin.copy:
     src: "zshrc"
