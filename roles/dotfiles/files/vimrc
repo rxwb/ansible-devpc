@@ -1,0 +1,405 @@
+" .vimrc
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sets how many lines of history VIM has to remember
+set history=500
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+au FocusGained,BufEnter * silent! checktime
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
+" Show relative line numbers
+set number
+set relativenumber
+
+" Turn on the Wild menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+" Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=1
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch
+
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Properly disable sound on errors on MacVim
+if has("gui_macvim")
+    autocmd GUIEnter * set vb t_vb=
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colorscheme
+colorscheme solarized
+
+" Enable syntax highlighting
+syntax enable
+
+" Set regular expression engine automatically
+set regexpengine=0
+
+" Enable 256 colors palette in Gnome Terminal
+if $COLORTERM == 'gnome-terminal'
+    set t_Co=256
+endif
+
+set background=dark
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+if has("mac") || has("macunix")
+    nmap <D-j> <M-j>
+    nmap <D-k> <M-k>
+    vmap <D-j> <M-j>
+    vmap <D-k> <M-k>
+endif
+
+if has("autocmd")
+    autocmd BufWritePre *.c,*.cpp,*.h,*.py,*.rs,*.sh,*.yml,*.txt :call CleanExtraSpaces()
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
+
+" Delete trailing white space on save, useful for some filetypes ;)
+fun! CleanExtraSpaces()
+    let save_cursor = getpos(".")
+    let old_query = getreg('/')
+    silent! %s/\s\+$//e
+    call setpos('.', save_cursor)
+    call setreg('/', old_query)
+endfun
+
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Format the status line
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+function! GitBranch()
+    return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+    let l:branchname = GitBranch()
+    return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+" Color highlighting groups
+" Add this AFTER `colorscheme` option in your vimrc. Otherwise your colorscheme will clear this highlightings. OR use ColorScheme autocommand. VERY IMPORTANT.
+
+"set termguicolors
+
+" Color pallet
+" Green  - #2BBB4F (BG) - #080808 (FG)
+" Blue   - #4799EB
+" Violet - #986FEC
+" Yellow - #D7A542
+" Orange - #EB754D
+" Grey1  - #202020
+" Grey   - #303030
+
+" Define color variables
+let g:StslineColorGreen  = "#2BBB4F"
+let g:StslineColorBlue   = "#4799EB"
+let g:StslineColorViolet = "#986FEC"
+let g:StslineColorYellow = "#D7A542"
+let g:StslineColorOrange = "#EB754D"
+
+let g:StslineColorLight  = "#C0C0C0"
+let g:StslineColorDark   = "#080808"
+let g:StslineColorDark1  = "#181818"
+let g:StslineColorDark2  = "#202020"
+let g:StslineColorDark3  = "#303030"
+
+" Define colors
+let g:StslineBackColor   = g:StslineColorDark2
+let g:StslineOnBackColor = g:StslineColorLight
+"let g:StslinePriColor   = g:StslineColorGreen
+let g:StslineOnPriColor  = g:StslineColorDark
+let g:StslineSecColor    = g:StslineColorDark3
+let g:StslineOnSecColor  = g:StslineColorLight
+
+" Create highlight groups
+execute 'highlight StslineSecColorFG guifg=' . g:StslineSecColor   ' guibg=' . g:StslineBackColor
+execute 'highlight StslineSecColorBG guifg=' . g:StslineColorLight ' guibg=' . g:StslineSecColor
+execute 'highlight StslineBackColorBG guifg=' . g:StslineColorLight ' guibg=' . g:StslineBackColor
+execute 'highlight StslineBackColorFGSecColorBG guifg=' . g:StslineBackColor ' guibg=' . g:StslineSecColor
+execute 'highlight StslineSecColorFGBackColorBG guifg=' . g:StslineSecColor ' guibg=' . g:StslineBackColor
+execute 'highlight StslineModColorFG guifg=' . g:StslineColorYellow ' guibg=' . g:StslineBackColor
+
+" Always show the status line
+set laststatus=2
+
+" Disable showmode - i.e. Don't show mode like --INSERT-- in current statusline.
+set noshowmode
+
+" Understand statusline elements
+" %{StslineMode()}  = Output of a function
+" %#StslinePriColorBG# = Highlight group
+" %F, %c, etc. are variables which contain value like - current file path, current colums, etc.
+" %{&readonly?\"\ \":\"\"} = If file is readonly ? Then "Lock icon" Else : "Nothing"
+" %{get(b:,'coc_git_status',b:GitBranch)}    = If b:coc_git_status efists, then it's value, else value of b:GitBranch
+" &filetype, things starting with & are also like variables with info.
+" \  - Is for escaping a space. \" is for escaping a double quote.
+" %{&fenc!='utf-8'?\"\ \":''}   = If file encoding is NOT!= 'utf-8' ? THEN output a "Space" else : no character
+
+" Define active statusline
+function! ActivateStatusline()
+call GetFileType()
+setlocal statusline=%#StslinePriColorBG#\ %{StslineMode()}%#StslineSecColorBG#%{get(b:,'coc_git_status',b:GitBranch)}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGPriColorBG#%#StslinePriColorFG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslinePriColorFG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFG#%#StslineSecColorBG#%{&fenc!='utf-8'?\"\ \":''}%{&fenc!='utf-8'?&fenc:''}%{&fenc!='utf-8'?\"\ \":''}%#StslinePriColorFGSecColorBG#%#StslinePriColorBG#\ %p\%%\ %#StslinePriColorBGBold#%l%#StslinePriColorBG#/%L\ :%2c
+endfunction
+
+" Define Inactive statusline
+function! DeactivateStatusline()
+if !exists("b:GitBranch") || b:GitBranch == ''
+setlocal statusline=%#StslineSecColorBG#\ INACTIVE\ %#StslineSecColorBG#%{get(b:,'coc_git_statusline',b:GitBranch)}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGSecColorBG#%#StslineBackColorBG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslineBackColorBG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFGBackColorBG#%#StslineSecColorBG#\ %p\%%\ %l/%L\ :%2c
+else
+setlocal statusline=%#StslineSecColorBG#%{get(b:,'coc_git_statusline',b:GitBranch)}%{get(b:,'coc_git_blame','')}%#StslineBackColorFGSecColorBG#%#StslineBackColorBG#\ %{&readonly?\"\ \":\"\"}%F\ %#StslineModColorFG#%{&modified?\"\ \":\"\"}%=%#StslineBackColorBG#\ %{b:FiletypeIcon}%{&filetype}\ %#StslineSecColorFGBackColorBG#%#StslineSecColorBG#\ %p\%%\ %l/%L\ :%2c
+endif
+endfunction
+
+" Get Statusline mode & also set primary color for that mode
+function! StslineMode()
+    let l:CurrentMode=mode()
+    if l:CurrentMode==#"n"
+        let g:StslinePriColor     = g:StslineColorGreen
+        let b:CurrentMode = "NORMAL "
+    elseif l:CurrentMode==#"i"
+        let g:StslinePriColor     = g:StslineColorViolet
+        let b:CurrentMode = "INSERT "
+    elseif l:CurrentMode==#"c"
+        let g:StslinePriColor     = g:StslineColorYellow
+        let b:CurrentMode = "COMMAND "
+    elseif l:CurrentMode==#"v"
+        let g:StslinePriColor     = g:StslineColorBlue
+        let b:CurrentMode = "VISUAL "
+    elseif l:CurrentMode==#"V"
+        let g:StslinePriColor     = g:StslineColorBlue
+        let b:CurrentMode = "V-LINE "
+    elseif l:CurrentMode==#"\<C-v>"
+        let g:StslinePriColor     = g:StslineColorBlue
+        let b:CurrentMode = "V-BLOCK "
+    elseif l:CurrentMode==#"R"
+        let g:StslinePriColor     = g:StslineColorViolet
+        let b:CurrentMode = "REPLACE "
+    elseif l:CurrentMode==#"s"
+        let g:StslinePriColor     = g:StslineColorBlue
+        let b:CurrentMode = "SELECT "
+    elseif l:CurrentMode==#"t"
+        let g:StslinePriColor     =g:StslineColorYellow
+        let b:CurrentMode = "TERM "
+    elseif l:CurrentMode==#"!"
+        let g:StslinePriColor     = g:StslineColorYellow
+        let b:CurrentMode = "SHELL "
+    endif
+    call UpdateStslineColors()
+
+    return b:CurrentMode
+endfunction
+
+" Update colors. Recreate highlight groups with new Primary color value.
+function! UpdateStslineColors()
+    execute 'highlight StslinePriColorBG           guifg=' . g:StslineOnPriColor ' guibg=' . g:StslinePriColor
+    execute 'highlight StslinePriColorBGBold       guifg=' . g:StslineOnPriColor ' guibg=' . g:StslinePriColor ' gui=bold'
+    execute 'highlight StslinePriColorFG           guifg=' . g:StslinePriColor   ' guibg=' . g:StslineBackColor
+    execute 'highlight StslinePriColorFGSecColorBG guifg=' . g:StslinePriColor   ' guibg=' . g:StslineSecColor
+    execute 'highlight StslineSecColorFGPriColorBG guifg=' . g:StslineSecColor   ' guibg=' . g:StslinePriColor
+
+    if !exists("b:GitBranch") || b:GitBranch == ''
+        execute 'highlight StslineBackColorFGPriColorBG guifg=' . g:StslineBackColor ' guibg=' . g:StslinePriColor
+    endif
+endfunction
+
+" Get git branch name
+function! GetGitBranch()
+    let b:GitBranch=""
+    try
+        let l:dir=expand('%:p:h')
+        let l:gitrevparse = system("git -C ".l:dir." rev-parse --abbrev-ref HEAD")
+        if !v:shell_error
+            let b:GitBranch="   ".substitute(l:gitrevparse, '\n', '', 'g')." "
+            execute 'highlight StslineBackColorFGPriColorBG guifg=' . g:StslineBackColor ' guibg=' . g:StslineSecColor
+        endif
+    catch
+    endtry
+endfunction
+
+" Get filetype & custom icon. Put your most used file types first for optimized performance.
+function! GetFileType()
+    if &filetype == 'c'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'cpp'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'rust'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'sh' || &filetype == 'zsh'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'vim'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'lua'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'markdown'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'typescript'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'html'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'scss'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'css'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'javascript'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'javascriptreact'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == ''
+        let b:FiletypeIcon = ''
+    elseif &filetype == 'ruby'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'go'
+        let b:FiletypeIcon = ' '
+    elseif &filetype == 'haskell'
+        let b:FiletypeIcon = ' '
+    else
+        let b:FiletypeIcon = ' '
+    endif
+endfunction
+
+" Get git branch name after entering a buffer
+augroup GetGitBranch
+    autocmd!
+    autocmd BufEnter * call GetGitBranch()
+augroup END
+
+" Set active / inactive statusline after entering, leaving buffer
+augroup SetStslineline
+    autocmd!
+    autocmd BufEnter,WinEnter * call ActivateStatusline()
+    autocmd BufLeave,WinLeave * call DeactivateStatusline()
+augroup END

@@ -40,6 +40,26 @@
   loop: "{{ git_aliases | dict2items }}"
   tags: [dotfiles, git]
 
+- name: vim config file is present
+  ansible.builtin.copy:
+    src: "vimrc"
+    dest: "{{ ansible_env.HOME }}/.vimrc"
+  tags: [dotfiles, vim]
+
+- name: vim plugin directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.vim/pack/plugins/start"
+    state: directory
+    mode: '0755'
+  tags: [dotfiles, vim]
+
+- name: vim plugins installed
+  ansible.builtin.git:
+    repo: "{{ item.value }}"
+    dest: "{{ ansible_env.HOME }}/.vim/pack/plugins/start/{{ item.key }}"
+  loop: "{{ vim_plugins | dict2items }}"
+  tags: [dotfiles, vim]
+
 - name: grml zsh config is present
   ansible.builtin.copy:
     src: "zshrc"
