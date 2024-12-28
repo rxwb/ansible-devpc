@@ -30,6 +30,9 @@ if [ -r ~/.zshrc -a -r ~/.zshrc.global -a ! -r ~/.zshrc.local ] ; then
     printf '-!-\n'
 fi
 
+## Add cargo binaries dir to PATH
+export PATH=$PATH:~/.cargo/bin
+
 ## Settings for umask
 #if (( EUID == 0 )); then
 #    umask 002
