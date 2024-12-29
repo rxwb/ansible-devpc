@@ -11,16 +11,21 @@
       ap: add -p
       ci: commit
       cia: commit --amend
+      co: checkout
+      cob: checkout -b
       di: diff
       ds: diff --staged
+      f: fetch --all --tags
       l: log
       pu: push
       pl: pull
       rbi: rebase --interactive
       st: status
     zsh_aliases:
+      c: clear
       g: git
       gl: git log --oneline
+      gk: gitk --all&
       py: ipython
 
 - name: Enable ssh-agent
