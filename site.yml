@@ -9,6 +9,7 @@
     git_email: ronaldxweber@gmail.com
     git_aliases:
       ap: add -p
+      b: branch
       ci: commit
       cia: commit --amend
       co: checkout
@@ -21,6 +22,7 @@
       pl: pull
       rbi: rebase --interactive
       st: status
+      t: tag
     zsh_aliases:
       c: clear
       g: git
