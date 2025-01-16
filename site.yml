@@ -28,7 +28,9 @@
       g: git
       gl: git log --oneline
       gk: gitk --all&
+      mhz: watch -n 1 "grep MHz /proc/cpuinfo"
       py: ipython
+      zzz: systemctl suspend
 
 - name: Enable ssh-agent
   hosts: devpcs
