@@ -30,6 +30,7 @@
       gk: gitk --all&
       mhz: watch -n 1 "grep MHz /proc/cpuinfo"
       py: ipython
+      v: nvim
       zzz: systemctl suspend
 
 - name: Enable ssh-agent

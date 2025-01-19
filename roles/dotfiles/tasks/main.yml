@@ -71,3 +71,16 @@
     src: "zshrc.local.j2"
     dest: "{{ ansible_env.HOME }}/.zshrc.local"
   tags: [dotfiles, zsh]
+
+- name: neovim config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/nvim"
+    state: directory
+    mode: '0755'
+  tags: [dotfiles, nvim]
+
+- name: neovim config file is present
+  ansible.builtin.copy:
+    src: "nvim-init.lua"
+    dest: "{{ ansible_env.HOME }}/.config/nvim/init.lua"
+  tags: [dotfiles, nvim]
