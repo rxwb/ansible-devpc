@@ -344,7 +344,12 @@ globalkeys = gears.table.join(
               {description = "lua execute prompt", group = "awesome"}),
     -- Menubar
     awful.key({ modkey }, "p", function() menubar.show() end,
-              {description = "show the menubar", group = "launcher"})
+              {description = "show the menubar", group = "launcher"}),
+    -- Special Keys
+    awful.key({ }, "XF86MonBrightnessUp", function () os.execute("xbacklight -inc 5") end,
+              {description = "+5%", group = "hotkeys"}),
+    awful.key({ }, "XF86MonBrightnessDown", function () os.execute("xbacklight -dec 5") end,
+              {description = "-5%", group = "hotkeys"})
 )
 
 clientkeys = gears.table.join(
