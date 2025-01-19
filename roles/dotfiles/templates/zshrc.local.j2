@@ -35,8 +35,13 @@ if check_com -c nvim ; then
     export EDITOR=nvim
 fi
 
-## Add cargo binaries dir to PATH
+## Add cargo binaries dir to PATH ##
 export PATH=$PATH:~/.cargo/bin
+
+## Aliases ##
+{% for alias, aliased in zsh_aliases.items() -%}
+alias {{ alias }}='{{ aliased }}'
+{% endfor %}
 
 ## Settings for umask
 #if (( EUID == 0 )); then
@@ -173,11 +178,6 @@ export PATH=$PATH:~/.cargo/bin
 ## the default grml setup provides '..' as a completion. it does not provide
 ## '.' though. If you want that too, use the following line:
 #zstyle ':completion:*' special-dirs true
-
-## aliases ##
-{% for alias, aliased in zsh_aliases.items() -%}
-alias {{ alias }}='{{ aliased }}'
-{% endfor %}
 
 ## translate
 #alias u='translate -i'
