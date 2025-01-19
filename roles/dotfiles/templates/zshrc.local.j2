@@ -43,6 +43,19 @@ export PATH=$PATH:~/.cargo/bin
 alias {{ alias }}='{{ aliased }}'
 {% endfor %}
 
+## Prompt theme extension ##
+# Distrobox support
+if [[ -v CONTAINER_ID ]]; then
+    zstyle ':prompt:grml:*:items:user' pre '%B%F{yellow}'
+    zstyle ':prompt:grml:*:items:host' post '(%F{yellow}'${CONTAINER_ID}'%f) '
+fi
+# Virtualenv support
+function virtual_env_prompt () {
+    REPLY=${VIRTUAL_ENV+(${VIRTUAL_ENV:t}) }
+}
+grml_theme_add_token  virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
+zstyle ':prompt:grml:left:setup' items rc virtual-env change-root user at host path vcs percent
+
 ## Settings for umask
 #if (( EUID == 0 )); then
 #    umask 002
@@ -52,16 +65,6 @@ alias {{ alias }}='{{ aliased }}'
 
 ## Now, we'll give a few examples of what you might want to use in your
 ## .zshrc.local file (just copy'n'paste and uncomment it there):
-
-## Prompt theme extension ##
-
-# Virtualenv support
-
-#function virtual_env_prompt () {
-#    REPLY=${VIRTUAL_ENV+(${VIRTUAL_ENV:t}) }
-#}
-#grml_theme_add_token  virtual-env -f virtual_env_prompt '%F{magenta}' '%f'
-#zstyle ':prompt:grml:left:setup' items rc virtual-env change-root user at host path vcs percent
 
 ## ZLE tweaks ##
 
