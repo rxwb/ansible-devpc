@@ -97,3 +97,16 @@
     src: "niri-config.kdl"
     dest: "{{ ansible_env.HOME }}/.config/niri/config.kdl"
   tags: [dotfiles, niri]
+
+- name: waybar config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/waybar"
+    state: directory
+    mode: '0755'
+  tags: [dotfiles, waybar]
+
+- name: waybar config file is present
+  ansible.builtin.copy:
+    src: "waybar-config.jsonc"
+    dest: "{{ ansible_env.HOME }}/.config/waybar/config.jsonc"
+  tags: [dotfiles, waybar]
