@@ -52,10 +52,22 @@ require("lazy").setup({
       priority = 1000,
       opts = {},
     },
+    -- Collection of various small independent plugins/modules
+    {
+      'echasnovski/mini.nvim',
+      config = function()
+          local icons = require 'mini.icons'
+          icons.setup()
+          local git = require 'mini.git'
+          git.setup()
+          local statusline = require 'mini.statusline'
+          statusline.setup()
+      end
+    },
     -- Rust LSP support
     {
       'mrcjkb/rustaceanvim',
-      version = '^5', -- Recommended
+      version = '^5',
       lazy = false, -- This plugin is already lazy
     },
   },
