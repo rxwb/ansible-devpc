@@ -214,6 +214,7 @@ spawn-at-startup "xwayland-satellite" ":12"
 environment {
     DISPLAY ":12"
 }
+spawn-at-startup "waybar"
 spawn-at-startup "kitty"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
