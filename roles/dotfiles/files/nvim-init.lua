@@ -17,9 +17,30 @@ vim.opt.rtp:prepend(lazypath)
 
 -- Make sure to setup `mapleader` and `maplocalleader` before
 -- loading lazy.nvim so that mappings are correct.
--- This is also a good place to setup other settings (vim.opt)
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
+
+-- Expand tabs
+vim.opt.expandtab = true
+vim.opt.smarttab = true
+vim.opt.shiftwidth = 4
+vim.opt.tabstop = 4
+vim.opt.autoindent = true
+vim.opt.smartindent = true
+
+-- Show line numbers
+vim.opt.number = true
+vim.opt.relativenumber = true
+
+-- Highlight line your cursor is on
+vim.opt.cursorline = true
+
+-- Keep cursor off the edges
+vim.opt.scrolloff = 10
+
+-- Show some whitespace characters
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
 -- Setup lazy.nvim
 require("lazy").setup({
@@ -47,17 +68,3 @@ require("lazy").setup({
 
 -- Colorscheme
 vim.cmd[[colorscheme solarized-osaka]]
-
--- Show line numbers
-vim.opt.number = true
-vim.opt.relativenumber = true
-
--- Highlight line your cursor is on
-vim.opt.cursorline = true
-
--- Keep cursor off the edges
-vim.opt.scrolloff = 10
-
--- Show some whitespace characters
-vim.opt.list = true
-vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
