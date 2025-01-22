@@ -84,3 +84,16 @@
     src: "nvim-init.lua"
     dest: "{{ ansible_env.HOME }}/.config/nvim/init.lua"
   tags: [dotfiles, nvim]
+
+- name: niri config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.config/niri"
+    state: directory
+    mode: '0755'
+  tags: [dotfiles, niri]
+
+- name: niri config file is present
+  ansible.builtin.copy:
+    src: "niri-config.kdl"
+    dest: "{{ ansible_env.HOME }}/.config/niri/config.kdl"
+  tags: [dotfiles, niri]
