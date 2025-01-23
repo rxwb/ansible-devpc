@@ -304,6 +304,8 @@ binds {
     Mod+Return { spawn "kitty"; }
     Mod+D { spawn "fuzzel"; }
     Super+Alt+L { spawn "swaylock" "-c002b36"; }
+    Mod+B { spawn "firefox"; }
+    Mod+E { spawn "pcmanfm"; }
 
     // You can also use a shell. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument in the end.
