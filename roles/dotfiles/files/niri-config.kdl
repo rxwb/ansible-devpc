@@ -209,12 +209,18 @@ layout {
 // See the binds section below for more spawn examples.
 // spawn-at-startup "alacritty" "-e" "fish"
 
+// Lock screen on sleep and turn it off after a while of inactivity
+spawn-at-startup "swayidle" "-w" "before-sleep" "swaylock -f -c002b36" "timeout" "300" "niri msg output eDP-1 off" "resume" "niri msg output eDP-1 on"
+
 // Enable X programs to run
 spawn-at-startup "xwayland-satellite" ":12"
 environment {
     DISPLAY ":12"
 }
+// Status bar
 spawn-at-startup "waybar"
+
+// Open a terminal
 spawn-at-startup "kitty"
 
 // Uncomment this line to ask the clients to omit their client-side decorations if possible.
