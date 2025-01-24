@@ -70,6 +70,10 @@ require("lazy").setup({
       version = '^5',
       lazy = false, -- This plugin is already lazy
     },
+    -- KDL support
+    {
+      'imsnif/kdl.vim',
+    },
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
