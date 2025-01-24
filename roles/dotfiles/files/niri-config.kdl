@@ -215,6 +215,7 @@ spawn-at-startup "swayidle" "-w" "before-sleep" "swaylock -f -c002b36" "timeout"
 // Enable X programs to run
 spawn-at-startup "xwayland-satellite" ":12"
 environment {
+    QT_QPA_PLATFORM "wayland"
     DISPLAY ":12"
 }
 // Status bar
