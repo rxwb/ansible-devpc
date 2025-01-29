@@ -12,12 +12,14 @@
       b: branch
       ci: commit
       cia: commit --amend
+      cim: commit -m
       co: checkout
       cob: checkout -b
       di: diff
       ds: diff --staged
       f: fetch --all --tags
       l: log
+      lp: log -p
       pu: push
       pl: pull
       rbi: rebase --interactive
