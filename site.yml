@@ -27,6 +27,14 @@
       t: tag
     zsh_aliases:
       c: clear
+      ca: cargo
+      cb: cargo build
+      cbr: cargo build --release
+      cc: cargo clippy
+      cf: cargo fmt
+      cr: cargo run
+      crr: cargo run --release
+      ct: cargo test
       g: git
       gl: git log --oneline
       gk: gitk --all&
