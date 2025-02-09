@@ -23,6 +23,8 @@
       pu: push
       pl: pull
       rbi: rebase --interactive
+      s: stash
+      sp: stash pop
       st: status
       t: tag
     zsh_aliases:
