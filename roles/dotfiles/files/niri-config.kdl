@@ -217,6 +217,7 @@ spawn-at-startup "xwayland-satellite" ":12"
 environment {
     QT_QPA_PLATFORM "wayland"
     DISPLAY ":12"
+    _JAVA_AWT_WM_NONREPARENTING "1"
 }
 // Status bar
 spawn-at-startup "waybar"
