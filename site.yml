@@ -38,7 +38,7 @@
       crr: cargo run --release
       ct: cargo test
       g: git
-      gl: git log --oneline
+      gl: git log --oneline --graph --decorate
       gk: gitk --all&
       mhz: watch -n 1 "grep MHz /proc/cpuinfo"
       py: ipython
