@@ -17,7 +17,7 @@
       cob: checkout -b
       di: diff
       ds: diff --staged
-      f: fetch --all --tags
+      f: fetch --all --tags --prune
       l: log
       lp: log -p
       pu: push
