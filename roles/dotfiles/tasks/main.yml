@@ -2,6 +2,19 @@
 ---
 # tasks file for dotfiles
 
+- name: xkb config directory exists
+  ansible.builtin.file:
+    path: "{{ ansible_env.HOME }}/.xkb/symbols"
+    state: directory
+    mode: '0755'
+  tags: [dotfiles, xkb, niri]
+
+- name: custom keymap file is present
+  ansible.builtin.copy:
+    src: "us-german-umlaut"
+    dest: "{{ ansible_env.HOME }}/.xkb/symbols/us-german-umlaut"
+  tags: [dotfiles, xkb, niri]
+
 - name: awesome config directory exists
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config/awesome"
