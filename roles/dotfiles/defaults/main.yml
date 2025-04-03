@@ -5,4 +5,5 @@
 git_name: Example Name
 git_email: user@example.com
 git_aliases: {}
+vim_plugins: {}
 zsh_aliases: {}
