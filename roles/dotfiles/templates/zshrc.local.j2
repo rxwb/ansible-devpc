@@ -36,7 +36,9 @@ if check_com -c nvim ; then
 fi
 
 ## Add cargo binaries dir to PATH ##
-export PATH=$PATH:~/.cargo/bin
+if [ -d ~/.cargo/bin ]; then
+    export PATH=$PATH:~/.cargo/bin
+fi
 
 ## Aliases ##
 {% for alias, aliased in zsh_aliases.items() -%}
