@@ -30,11 +30,6 @@ if [ -r ~/.zshrc -a -r ~/.zshrc.global -a ! -r ~/.zshrc.local ] ; then
     printf '-!-\n'
 fi
 
-## Use a modern editor ##
-if check_com -c nvim ; then
-    export EDITOR=nvim
-fi
-
 ## Add cargo binaries dir to PATH ##
 if [ -d ~/.cargo/bin ]; then
     export PATH=$PATH:~/.cargo/bin
@@ -43,6 +38,11 @@ fi
 ## Add local binaries dir to PATH ##
 if [ -d ~/.local/bin ]; then
     export PATH=$PATH:~/.local/bin
+fi
+
+## Use a modern editor ##
+if check_com -c nvim ; then
+    export EDITOR=nvim
 fi
 
 ## Aliases ##
