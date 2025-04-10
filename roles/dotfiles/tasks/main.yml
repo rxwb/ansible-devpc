@@ -53,6 +53,14 @@
   loop: "{{ git_aliases | dict2items }}"
   tags: [dotfiles, git]
 
+- name: git extra configs are set
+  community.general.git_config:
+    name: "{{ item.key }}"
+    value: "{{ item.value }}"
+    scope: global
+  loop: "{{ git_extra_config | dict2items }}"
+  tags: [dotfiles, git]
+
 - name: vim config file is present
   ansible.builtin.copy:
     src: "vimrc"
