@@ -30,6 +30,7 @@
       t: tag
     git_extra_config:
       init.defaultBranch: main
+      push.autoSetupRemote: "true"
     vim_plugins:
       solarized: https://github.com/altercation/vim-colors-solarized.git
     zsh_aliases:
