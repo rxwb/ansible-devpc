@@ -53,6 +53,19 @@
   loop: "{{ git_aliases | dict2items }}"
   tags: [dotfiles, git]
 
+- name: global gitignore file is present
+  ansible.builtin.copy:
+    src: "gitignore_global"
+    dest: "{{ ansible_env.HOME }}/.gitignore_global"
+  tags: [dotfiles, git]
+
+- name: global gitignore file is configured
+  community.general.git_config:
+    name: core.excludesFile
+    value: "{{ ansible_env.HOME }}/.gitignore_global"
+    scope: global
+  tags: [dotfiles, git]
+
 - name: git extra configs are set
   community.general.git_config:
     name: "{{ item.key }}"
