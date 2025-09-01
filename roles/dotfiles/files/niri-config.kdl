@@ -252,10 +252,8 @@ layout {
 spawn-at-startup "swayidle" "-w" "before-sleep" "swaylock -f -c002b36" "timeout" "300" "niri msg output eDP-1 off" "resume" "niri msg output eDP-1 on"
 
 // Enable X programs to run
-spawn-at-startup "xwayland-satellite" ":12"
 environment {
     QT_QPA_PLATFORM "wayland"
-    DISPLAY ":12"
     _JAVA_AWT_WM_NONREPARENTING "1"
 }
 // Status bar
