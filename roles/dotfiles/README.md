@@ -17,6 +17,7 @@ Role Variables
 - git\_extra\_config: dictionary of extra global git configuration not covered by the above
 - vim\_plugins: dictionary of vim plugins
 - zsh\_aliases: dictionary of zsh aliases. Can't use literal ' in the aliased command
+- zsh\_env\_vars: dictionary of zsh environment variables. Can't use literal ' in the value
 
 Dependencies
 ------------
@@ -41,6 +42,8 @@ Example Playbook
           solarized: https://github.com/altercation/vim-colors-solarized.git
         zsh_aliases:
           g: git
+        zsh_env_vars:
+          EDITOR: vim
 
 License
 -------

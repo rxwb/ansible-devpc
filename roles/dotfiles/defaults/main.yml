@@ -8,3 +8,4 @@ git_aliases: {}
 git_extra_config: {}
 vim_plugins: {}
 zsh_aliases: {}
+zsh_env_vars: {}

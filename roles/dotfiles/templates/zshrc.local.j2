@@ -50,6 +50,11 @@ fi
 alias {{ alias }}='{{ aliased }}'
 {% endfor %}
 
+## Environment variables ##
+{% for var, value in zsh_env_vars.items() -%}
+export {{ var }}='{{ value }}'
+{% endfor %}
+
 ## Prompt theme extension ##
 # Distrobox support
 if [[ -v CONTAINER_ID ]]; then
