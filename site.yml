@@ -51,6 +51,9 @@
       py: ipython
       v: nvim
       zzz: systemctl suspend
+    zsh_env_vars:
+      BAT_THEME_DARK: "Solarized (dark)"
+      BAT_THEME_LIGHT: "Solarized (light)"
 
 - name: Enable ssh-agent
   hosts: devpcs
