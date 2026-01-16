@@ -132,6 +132,12 @@
     dest: "{{ ansible_env.HOME }}/.config/niri/config.kdl"
   tags: [dotfiles, niri]
 
+- name: tmux config file is present
+  ansible.builtin.copy:
+    src: "tmux.conf"
+    dest: "{{ ansible_env.HOME }}/.tmux.conf"
+  tags: [dotfiles, tmux]
+
 - name: waybar config directory exists
   ansible.builtin.file:
     path: "{{ ansible_env.HOME }}/.config/waybar"
