@@ -256,8 +256,6 @@ environment {
     QT_QPA_PLATFORM "wayland"
     _JAVA_AWT_WM_NONREPARENTING "1"
 }
-// Status bar
-spawn-at-startup "waybar"
 
 // Open a terminal
 spawn-at-startup "kitty"
