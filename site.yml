@@ -50,6 +50,7 @@
       gk: gitk --all&
       mhz: watch -n 1 "grep MHz /proc/cpuinfo"
       py: ipython
+      rga: rg --hidden --no-ignore
       v: nvim
       zzz: systemctl suspend
     zsh_env_vars:
