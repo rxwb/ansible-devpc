@@ -4,7 +4,7 @@
 
 - name: xkb config directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.xkb/symbols"
+    path: "{{ ansible_facts['env'].HOME }}/.xkb/symbols"
     state: directory
     mode: '0755'
   tags: [dotfiles, xkb, niri]
@@ -12,12 +12,12 @@
 - name: custom keymap file is present
   ansible.builtin.copy:
     src: "us-german-umlaut"
-    dest: "{{ ansible_env.HOME }}/.xkb/symbols/us-german-umlaut"
+    dest: "{{ ansible_facts['env'].HOME }}/.xkb/symbols/us-german-umlaut"
   tags: [dotfiles, xkb, niri]
 
 - name: awesome config directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/awesome"
+    path: "{{ ansible_facts['env'].HOME }}/.config/awesome"
     state: directory
     mode: '0755'
   tags: [dotfiles, awesome]
@@ -25,7 +25,7 @@
 - name: awesome config files are present
   ansible.builtin.copy:
     src: "awesome-{{ item }}"
-    dest: "{{ ansible_env.HOME }}/.config/awesome/{{ item }}"
+    dest: "{{ ansible_facts['env'].HOME }}/.config/awesome/{{ item }}"
   loop:
     - rc.lua
     - battery.lua
@@ -56,13 +56,13 @@
 - name: global gitignore file is present
   ansible.builtin.copy:
     src: "gitignore_global"
-    dest: "{{ ansible_env.HOME }}/.gitignore_global"
+    dest: "{{ ansible_facts['env'].HOME }}/.gitignore_global"
   tags: [dotfiles, git]
 
 - name: global gitignore file is configured
   community.general.git_config:
     name: core.excludesFile
-    value: "{{ ansible_env.HOME }}/.gitignore_global"
+    value: "{{ ansible_facts['env'].HOME }}/.gitignore_global"
     scope: global
   tags: [dotfiles, git]
 
@@ -77,12 +77,12 @@
 - name: vim config file is present
   ansible.builtin.copy:
     src: "vimrc"
-    dest: "{{ ansible_env.HOME }}/.vimrc"
+    dest: "{{ ansible_facts['env'].HOME }}/.vimrc"
   tags: [dotfiles, vim]
 
 - name: vim plugin directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.vim/pack/plugins/start"
+    path: "{{ ansible_facts['env'].HOME }}/.vim/pack/plugins/start"
     state: directory
     mode: '0755'
   tags: [dotfiles, vim]
@@ -90,25 +90,25 @@
 - name: vim plugins installed
   ansible.builtin.git:
     repo: "{{ item.value }}"
-    dest: "{{ ansible_env.HOME }}/.vim/pack/plugins/start/{{ item.key }}"
+    dest: "{{ ansible_facts['env'].HOME }}/.vim/pack/plugins/start/{{ item.key }}"
   loop: "{{ vim_plugins | dict2items }}"
   tags: [dotfiles, vim]
 
 - name: grml zsh config is present
   ansible.builtin.copy:
     src: "zshrc"
-    dest: "{{ ansible_env.HOME }}/.zshrc"
+    dest: "{{ ansible_facts['env'].HOME }}/.zshrc"
   tags: [dotfiles, zsh]
 
 - name: zsh local config is present
   ansible.builtin.template:
     src: "zshrc.local.j2"
-    dest: "{{ ansible_env.HOME }}/.zshrc.local"
+    dest: "{{ ansible_facts['env'].HOME }}/.zshrc.local"
   tags: [dotfiles, zsh]
 
 - name: neovim config directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/nvim"
+    path: "{{ ansible_facts['env'].HOME }}/.config/nvim"
     state: directory
     mode: '0755'
   tags: [dotfiles, nvim]
@@ -116,12 +116,12 @@
 - name: neovim config file is present
   ansible.builtin.copy:
     src: "nvim-init.lua"
-    dest: "{{ ansible_env.HOME }}/.config/nvim/init.lua"
+    dest: "{{ ansible_facts['env'].HOME }}/.config/nvim/init.lua"
   tags: [dotfiles, nvim]
 
 - name: niri config directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/niri"
+    path: "{{ ansible_facts['env'].HOME }}/.config/niri"
     state: directory
     mode: '0755'
   tags: [dotfiles, niri]
@@ -129,18 +129,18 @@
 - name: niri config file is present
   ansible.builtin.copy:
     src: "niri-config.kdl"
-    dest: "{{ ansible_env.HOME }}/.config/niri/config.kdl"
+    dest: "{{ ansible_facts['env'].HOME }}/.config/niri/config.kdl"
   tags: [dotfiles, niri]
 
 - name: tmux config file is present
   ansible.builtin.copy:
     src: "tmux.conf"
-    dest: "{{ ansible_env.HOME }}/.tmux.conf"
+    dest: "{{ ansible_facts['env'].HOME }}/.tmux.conf"
   tags: [dotfiles, tmux]
 
 - name: waybar config directory exists
   ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/.config/waybar"
+    path: "{{ ansible_facts['env'].HOME }}/.config/waybar"
     state: directory
     mode: '0755'
   tags: [dotfiles, waybar]
@@ -148,5 +148,5 @@
 - name: waybar config file is present
   ansible.builtin.copy:
     src: "waybar-config.jsonc"
-    dest: "{{ ansible_env.HOME }}/.config/waybar/config.jsonc"
+    dest: "{{ ansible_facts['env'].HOME }}/.config/waybar/config.jsonc"
   tags: [dotfiles, waybar]
